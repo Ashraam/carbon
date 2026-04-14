@@ -176,6 +176,7 @@ use Throwable;
  * @property-read int              $firstWeekDay                                                                      0 through 6
  * @property-read int              $lastWeekDay                                                                       0 through 6
  * @property-read int              $quarter                                                                           the quarter of this instance, 1 - 4
+ * @property-read int              $semester                                                                          the semester of this instance, 1 - 2
  * @property-read int              $decade                                                                            the decade of this instance
  * @property-read int              $century                                                                           the century of this instance
  * @property-read int              $millennium                                                                        the millennium of this instance
@@ -1244,6 +1245,10 @@ trait Date
             // @property-read int the quarter of this instance, 1 - 4
             case $name === 'quarter':
                 return (int) ceil($this->month / static::MONTHS_PER_QUARTER);
+
+            // @property-read int the semester of this instance, 1 - 2
+            case $name === 'semester':
+                return (int) ceil($this->month / static::MONTHS_PER_SEMESTER);
 
             // @property-read int the decade of this instance
             // @call isSameUnit

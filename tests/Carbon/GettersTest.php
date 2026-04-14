@@ -284,6 +284,45 @@ class GettersTest extends AbstractTestCase
         $this->assertSame($quarter, $c->quarter);
     }
 
+    public static function dataForTestSemester(): array
+    {
+        return [
+            [1, 1],
+            [2, 1],
+            [3, 1],
+            [4, 1],
+            [5, 1],
+            [6, 1],
+            [7, 2],
+            [8, 2],
+            [9, 2],
+            [10, 2],
+            [11, 2],
+            [12, 2],
+        ];
+    }
+
+    #[DataProvider('dataForTestSemester')]
+    public function testSemesterFirstOfMonth(int $month, int $semester)
+    {
+        $c = Carbon::create(2015, $month, 1)->startOfMonth();
+        $this->assertSame($semester, $c->semester);
+    }
+
+    #[DataProvider('dataForTestSemester')]
+    public function testSemesterMiddleOfMonth(int $month, int $semester)
+    {
+        $c = Carbon::create(2015, $month, 15, 12, 13, 14);
+        $this->assertSame($semester, $c->semester);
+    }
+
+    #[DataProvider('dataForTestSemester')]
+    public function testSemesterLastOfMonth(int $month, int $semester)
+    {
+        $c = Carbon::create(2015, $month, 1)->endOfMonth();
+        $this->assertSame($semester, $c->semester);
+    }
+
     public function testGetLocalTrue()
     {
         // Default timezone has been set to America/Toronto in AbstractTestCase.php

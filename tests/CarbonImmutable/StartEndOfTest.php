@@ -401,6 +401,54 @@ class StartEndOfTest extends AbstractTestCase
         $this->assertCarbon($dt->endOfQuarter(), 2015, $endOfQuarterMonth, $endOfQuarterDay, 23, 59, 59);
     }
 
+    public function testStartOfSemesterrIsFluid()
+    {
+        $dt = Carbon::now();
+        $this->assertInstanceOfCarbon($dt->startOfSemester());
+    }
+
+    #[TestWith([1, 1])]
+    #[TestWith([2, 1])]
+    #[TestWith([3, 1])]
+    #[TestWith([4, 1])]
+    #[TestWith([5, 1])]
+    #[TestWith([6, 1])]
+    #[TestWith([7, 7])]
+    #[TestWith([8, 7])]
+    #[TestWith([9, 7])]
+    #[TestWith([10, 7])]
+    #[TestWith([11, 7])]
+    #[TestWith([12, 7])]
+    public function testStartOfSemester(int $month, int $startOfSemesterMonth)
+    {
+        $dt = Carbon::create(2015, $month, 15, 1, 2, 3);
+        $this->assertCarbon($dt->startOfSemester(), 2015, $startOfSemesterMonth, 1, 0, 0, 0);
+    }
+
+    public function testEndOfSemesterIsFluid()
+    {
+        $dt = Carbon::now();
+        $this->assertInstanceOfCarbon($dt->endOfSemester());
+    }
+
+    #[TestWith([1, 6, 30])]
+    #[TestWith([2, 6, 30])]
+    #[TestWith([3, 6, 30])]
+    #[TestWith([4, 6, 30])]
+    #[TestWith([5, 6, 30])]
+    #[TestWith([6, 6, 30])]
+    #[TestWith([7, 12, 31])]
+    #[TestWith([8, 12, 31])]
+    #[TestWith([9, 12, 31])]
+    #[TestWith([10, 12, 31])]
+    #[TestWith([11, 12, 31])]
+    #[TestWith([12, 12, 31])]
+    public function testEndOfSemester(int $month, int $endOfSemesterMonth, int $endOfSemesterDay)
+    {
+        $dt = Carbon::create(2015, $month, 15, 1, 2, 3);
+        $this->assertCarbon($dt->endOfSemester(), 2015, $endOfSemesterMonth, $endOfSemesterDay, 23, 59, 59);
+    }
+
     public function testAverageIsFluid()
     {
         $dt = Carbon::now()->average();

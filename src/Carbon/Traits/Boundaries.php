@@ -130,6 +130,44 @@ trait Boundaries
     }
 
     /**
+     * Resets the date to the first day of the semester and the time to 00:00:00
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->startOfSemester();
+     * ```
+     *
+     * @return static
+     */
+    public function startOfSemester()
+    {
+        if($this->month <= static::MONTHS_PER_SEMESTER) {
+            return $this->setDate($this->year, 1, 1)->startOfDay();
+        }
+
+        return $this->setDate($this->year, 7, 1)->startOfDay();
+    }
+
+    /**
+     * Resets the date to end of the semester and time to 23:59:59.999999
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->endOfSemester();
+     * ```
+     *
+     * @return static
+     */
+    public function endOfSemester()
+    {
+        if($this->month <= static::MONTHS_PER_SEMESTER) {
+            return $this->setDate($this->year, 6, 1)->endOfMonth();
+        }
+
+        return $this->setDate($this->year, 12, 1)->endOfMonth();
+    }
+
+    /**
      * Resets the date to the first day of the year and the time to 00:00:00
      *
      * @example
